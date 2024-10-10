@@ -1,0 +1,29 @@
+buildscript {
+    repositories {
+        google()   // Repositori Google
+        mavenCentral() // Repositori Maven Central
+    }
+    dependencies {
+        // Tambahkan classpath untuk Google services
+        classpath 'com.google.gms:google-services:4.4.2'
+    }
+}
+
+allprojects {
+    repositories {
+        google()   // Repositori Google untuk semua proyek
+        mavenCentral() // Repositori Maven Central
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
